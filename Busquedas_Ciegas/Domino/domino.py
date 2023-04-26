@@ -1,4 +1,6 @@
 import random
+import time
+from maquina import jugador_Maquina as maquina
 
 class Domino:
     def __init__(self):
@@ -58,13 +60,14 @@ class Juego_Domino:
             pass
         return val
     def jugar(self):
+        maquina1 = maquina(self.fichas_jugador_2, self.tablero)
         turno = self.decidir_turno()
         if turno == 1:
             print("Empieza el jugador 1")
             self.tablero.append(self.ficha_central), self.fichas_jugador_1.remove(self.ficha_central)
             turno = 2
         elif turno == 2:
-            print("Empieza el jugador 2")
+            print("Empieza la computadora")
             self.tablero.append(self.ficha_central), self.fichas_jugador_2.remove(self.ficha_central)
             turno = 1
         self.skip=0
@@ -95,16 +98,17 @@ class Juego_Domino:
                         self.fichas_jugador_1.remove(ficha)
                         self.skip=0
                     else:
-                        print("No se puede jugar esa ficha")
+                        print("El jugador decidio no jugar")
                 else:
                     print("No tiene esa ficha")
                 turno = 2
             elif turno == 2:
-                print("Turno del jugador 2")
-                print(f"Fichas del jugador 2: {self.fichas_jugador_2}")
+                print("Turno de la computadora")
+                print(f"Fichas de la maquina: {self.fichas_jugador_2}")
                 print(f"Fichas en la mesa: {self.tablero}")
-                ficha = input("Ingrese la ficha que desea jugar: ")
-                ficha = self.string_to_tuple(ficha)
+                ficha = maquina1.jugar(self.fichas_jugador_2, self.tablero)
+                print(f"La computadora jugo la ficha {ficha}")
+                time.sleep(5)
                 if ficha==-1:
                     self.skip+=1
                 if ficha in self.fichas_jugador_2:
@@ -125,7 +129,7 @@ class Juego_Domino:
                         self.fichas_jugador_2.remove(ficha)
                         self.skip=0
                     else:
-                        print("No se puede jugar esa ficha")
+                        print("La computadora decide pasar")
                 else:
                     print("No tiene esa ficha")
                 turno = 1
