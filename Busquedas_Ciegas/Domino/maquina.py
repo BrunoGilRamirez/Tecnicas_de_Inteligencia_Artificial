@@ -16,6 +16,14 @@ class jugador_Maquina:
                 mejor_ficha = ficha
         return mejor_ficha
 
+    def fichas_posibles(self, Valorderecho, Valorizquierdo):
+        fichas_posibles = []
+        for ficha in self.fichas:
+            if ficha[0] == Valorderecho or ficha[1] == Valorderecho:
+                fichas_posibles.append(ficha)
+            elif ficha[0] == Valorizquierdo or ficha[1] == Valorizquierdo:
+                fichas_posibles.append(ficha)
+        return fichas_posibles
     def jugar(self,fichas,tablero):
         self.actualizar_fichas(fichas)
         self.actualizar_tablero(tablero)
@@ -24,12 +32,8 @@ class jugador_Maquina:
         
         Valorderecho = self.tablero[len(self.tablero)-1][1]
         Valorizquierdo = self.tablero[0][0]
-        fichas_posibles = []
-        for ficha in self.fichas:
-            if ficha[0] == Valorderecho or ficha[1] == Valorderecho:
-                fichas_posibles.append(ficha)
-            elif ficha[0] == Valorizquierdo or ficha[1] == Valorizquierdo:
-                fichas_posibles.append(ficha)
+        fichas_posibles = self.fichas_posibles(Valorderecho, Valorizquierdo)
+        
         if len(fichas_posibles) == 0:
             return -1
         else:

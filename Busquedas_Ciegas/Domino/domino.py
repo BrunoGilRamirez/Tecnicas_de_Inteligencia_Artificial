@@ -40,10 +40,8 @@ class Juego_Domino:
         elif len(fichas_jugador_2) == 0:
             return 2
         elif skip>=2:
-            suma_mesa = sum(sum(ficha) for ficha in mesa)
             suma_fichas_jugador_1 = sum(sum(ficha) for ficha in fichas_jugador_1)
             suma_fichas_jugador_2 = sum(sum(ficha) for ficha in fichas_jugador_2)
-            
             if suma_fichas_jugador_1 < suma_fichas_jugador_2:
                 return 1
             else:
@@ -72,10 +70,13 @@ class Juego_Domino:
             turno = 1
         self.skip=0
         while (ganador := self.determinar_ganador(self.tablero, self.fichas_jugador_1, self.fichas_jugador_2,self.skip)) is None:
+            print("--------------------------------------Tablero--------------------------------------------")
+            print(f"\n\nFichas en la mesa: {self.tablero}\n\n")
+            print("--------------------------------------Tablero--------------------------------------------\n")
+            time.sleep(2)
             if turno == 1:
                 print("Turno del jugador 1")
                 print(f"Fichas del jugador 1: {self.fichas_jugador_1}")
-                print(f"Fichas en la mesa: {self.tablero}")
                 ficha = input("Ingrese la ficha que desea jugar: ")
                 ficha = self.string_to_tuple(ficha)
                 if ficha==-1:
@@ -103,12 +104,11 @@ class Juego_Domino:
                     print("No tiene esa ficha")
                 turno = 2
             elif turno == 2:
-                print("Turno de la computadora")
+                print("\nTurno de la computadora")
                 print(f"Fichas de la maquina: {self.fichas_jugador_2}")
-                print(f"Fichas en la mesa: {self.tablero}")
                 ficha = maquina1.jugar(self.fichas_jugador_2, self.tablero)
-                print(f"La computadora jugo la ficha {ficha}")
-                time.sleep(5)
+                print(f"La computadora jugo la ficha {ficha}\n")
+                time.sleep(2)
                 if ficha==-1:
                     self.skip+=1
                 if ficha in self.fichas_jugador_2:
@@ -133,11 +133,7 @@ class Juego_Domino:
                 else:
                     print("No tiene esa ficha")
                 turno = 1
-            print(ganador)
-            print(self.tablero)
-            print(self.fichas_jugador_1)
-            print(self.fichas_jugador_2)
-            print(f" jugador {turno}")
+            
         print(f"El ganador es el jugador {ganador}")
 
         
