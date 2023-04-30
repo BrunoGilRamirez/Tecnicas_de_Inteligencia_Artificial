@@ -45,8 +45,11 @@ class Juego_Domino:
             suma_fichas_jugador_1 = sum(sum(ficha) for ficha in fichas_jugador_1) #suma las fichas del jugador 1
             suma_fichas_jugador_2 = sum(sum(ficha) for ficha in fichas_jugador_2) #suma las fichas del jugador 2
             if suma_fichas_jugador_1 < suma_fichas_jugador_2: #si la suma de las fichas del jugador 1 es menor a la suma de las fichas del jugador 2, gana el jugador 1
+                print(f"Gana el jugador 1 con {suma_fichas_jugador_1} puntos y el jugador 2 perdio con {suma_fichas_jugador_2} puntos")
                 return 1
             else:
+                print(f"Gana el jugador 2 con {suma_fichas_jugador_2} puntos y el jugador 1 perdio con {suma_fichas_jugador_1} puntos")
+                 #si la suma de las fichas del jugador 2 es menor a la suma de las fichas del jugador 1, gana el jugador 2
                 return 2 #si la suma de las fichas del jugador 2 es menor a la suma de las fichas del jugador 1, gana el jugador 2
         else:
             return None
@@ -65,11 +68,13 @@ class Juego_Domino:
         maquina1 = maquina(self.fichas_jugador_2, self.tablero) #se crea la maquina
         turno = self.decidir_turno() #se decide el turno
         if turno == 1: #si el turno es 1, empieza el jugador 1
-            print("Empieza el jugador 1")
+            print("Empieza el jugador 1, las fichas se digitan como x,y")
+            time.sleep(4)
             self.tablero.append(self.ficha_central), self.fichas_jugador_1.remove(self.ficha_central) #se agrega la ficha central al tablero y se elimina de las fichas del jugador 1
             turno = 2 #turno de la maquina
         elif turno == 2: #si el turno es 2, empieza el jugador 2
             print("Empieza la computadora")
+            time.sleep(2)
             self.tablero.append(self.ficha_central), self.fichas_jugador_2.remove(self.ficha_central) #se agrega la ficha central al tablero y se elimina de las fichas del jugador 2
             turno = 1 #turno del jugador 1
         self.skip=0 #contador de turnos sin jugar
@@ -81,7 +86,7 @@ class Juego_Domino:
             if turno == 1: #turno del jugador 1
                 print("Turno del jugador 1")
                 print(f"Fichas del jugador 1: {self.fichas_jugador_1}")
-                ficha = input("Ingrese la ficha que desea jugar: ")
+                ficha = input("Si desea Saltar turno solo presione enter, de lo contrario...\nIngrese la ficha que desea jugar: ")
                 ficha = self.string_to_tuple(ficha)
                 if ficha==-1:
                     self.skip+=1
