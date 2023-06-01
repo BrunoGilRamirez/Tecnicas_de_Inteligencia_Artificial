@@ -1,0 +1,122 @@
+#:kivy 1.0.9
+#:import rgba kivy.utils.get_color_from_hex
+
+
+<Disk>:
+    text_size: self.size
+    halign: 'right'
+    canvas.before:
+        Color:
+            rgba: rgba('#FFFFFF')
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+            # rounded_rectangle: self.x, self.y, self.width, self.height, 10
+
+
+<TowerRecycleView>:
+    viewclass: 'Disk'
+    RecycleBoxLayout:
+        default_size: None, dp(56)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+
+<HanoiWindow>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: rgba('#263133')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 0.3
+        padding: 10
+        spacing: 20
+        Label:
+            text: 'Torres de Hanoi'
+            font_size: 35
+            size_hint: 0.5, 0.5
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            spacing: 20
+            Button:
+                text: 'Start'
+                on_press: root.start()
+            Label:
+                id: moves
+                text: 'Movimientos: 0'
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: disk_slider
+                    value: 4
+                    min: 1
+                    max: 7
+                    step: 1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        text: 'Discos: '
+                    Label:
+                        id: disk_label
+                        text: str(disk_slider.value)
+            BoxLayout:
+                orientation: 'vertical'
+                Slider:
+                    id: time_slider
+                    value: 5
+                    min: 1
+                    max: 10
+                    step: 1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        text: 'Velocidad: '
+                    Label:
+                        id: time_label
+                        text: str(time_slider.value / 10)
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.7
+        canvas:
+            Color:
+                rgba: rgba('#545869')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        TowerRecycleView:
+            id: tower1
+            size_hint_x: 0.33
+            data: []
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                Line:
+                    width: 2
+                    points: self.center_x, 1, self.center_x, self.height-30
+        TowerRecycleView:
+            id: tower2
+            size_hint_x: 0.33
+            data: []
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                Line:
+                    width: 2
+                    points: self.center_x, 1, self.center_x, self.height-30
+        TowerRecycleView:
+            id: tower3
+            size_hint_x: 0.33
+            data: []
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                Line:
+                    width: 2
+                    points: self.center_x, 1, self.center_x, self.height-30

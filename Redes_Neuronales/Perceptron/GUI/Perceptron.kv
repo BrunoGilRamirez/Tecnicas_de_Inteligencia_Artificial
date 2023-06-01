@@ -1,0 +1,271 @@
+#:kivy 1.0.9
+#:import rgba kivy.utils.get_color_from_hex
+
+
+<EntrenamientoDropdown>:
+    Button:
+        text: 'Pintar por paso'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('Pintar por paso')
+    Button:
+        text: 'Pintar por inicio y final'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('Pintar por inicio y final')
+
+
+<ReconocimientoDropdown>:
+    Button:
+        text: 'Generar datos al azar'
+        height: 50
+        size_hint_y: None
+        on_release: root.select('Generar datos al azar')
+    Button:
+        text: 'Cargar un archivo'
+        height: 50
+        size_hint_y: None
+        on_release: root.select('Cargar un archivo')
+
+
+<PerceptronWindow>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: rgba('#263133')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Label:
+        text: 'El Perceptron'
+        font_size: 30
+        color: rgba('#ffffff')
+        size_hint_y: 0.05
+    BoxLayout:
+        padding: 10
+        spacing: 5
+        size_hint_y: 0.75
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 0.4
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 0.6
+                spacing: 2
+                Label:
+                    size_hint_y: 0.05
+                    text: 'Generación de Regiones'
+                Label:
+                    id: region_errors
+                    size_hint_y: 0.05
+                    color: rgba('#ff0000')
+                GridLayout:
+                    cols: 2
+                    size_hint_y: 0.75
+                    spacing: 10
+                    padding: 20
+                    Label:
+                        size_hint_y: 0.2
+                        text: 'Región A'
+                    Label:
+                        size_hint_y: 0.2
+                        text: 'Región B'
+                    GridLayout:
+                        cols: 2
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'x1'
+                            TextInput:
+                                id: ax1
+                                size_hint_x: 0.7
+                                text: '-5'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'y1'
+                            TextInput:
+                                id: ay1
+                                size_hint_x: 0.7
+                                text: '-1'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'x2'
+                            TextInput:
+                                id: ax2
+                                size_hint_x: 0.7
+                                text: '0'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'y2'
+                            TextInput:
+                                id: ay2
+                                size_hint_x: 0.7
+                                text: '3'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'Na'
+                            TextInput:
+                                id: na
+                                size_hint_x: 0.7
+                                text: '100'
+                    GridLayout:
+                        cols: 2
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'x1'
+                            TextInput:
+                                id: bx1
+                                size_hint_x: 0.7
+                                text: '0'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'y1'
+                            TextInput:
+                                id: by1
+                                size_hint_x: 0.7
+                                text: '0'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'x2'
+                            TextInput:
+                                id: bx2
+                                size_hint_x: 0.7
+                                text: '5'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'y2'
+                            TextInput:
+                                id: by2
+                                size_hint_x: 0.7
+                                text: '5'
+                        BoxLayout:
+                            Label:
+                                size_hint_x: 0.3
+                                text: 'Nb'
+                            TextInput:
+                                id: nb
+                                size_hint_x: 0.7
+                                text: '100'
+                BoxLayout:
+                    size_hint_y: 0.15
+                    spacing: 10
+                    TextInput:
+                        id: file_name
+                        size_hint_x: 0.7
+                        text: 'archivo_1'
+                    Button:
+                        size_hint_x: 0.3
+                        text: 'Ok'
+                        on_release: root.generar_regiones()
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 0.2
+                Label:
+                    id: entrenamiento_label
+                    text: 'Entrenamiento'
+                BoxLayout:
+                    spacing: 5
+                    Button:
+                        id: entrenamiento_dropdown
+                        size_hint_x: 0.45
+                        text: 'Entrenamiento'
+                    Button:
+                        size_hint_x: 0.45
+                        text: 'Entrenar'
+                        on_release: root.entrenar()
+                    Button:
+                        size_hint_x: 0.1
+                        background_normal: ''
+                        background_color: rgba('#DA2528')
+                        text: 'X'
+                        on_release: root.detener()
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 0.2
+                spacing: 2
+                Label:
+                    id: reconocimiento_label
+                    text: 'Reconocimiento'
+                BoxLayout:
+                    spacing: 5
+                    Button:
+                        id: reconocimiento_dropdown
+                        size_hint_x: 0.45
+                        text: 'Reconocimiento'
+                    TextInput:
+                        id: reconocimiento_quantity
+                        size_hint_x: 0.1
+                    Button:
+                        text: 'Reconocer'
+                        size_hint_x: 0.45
+                        on_release: root.reconocer()
+                BoxLayout:
+                    spacing: 10
+                    TextInput:
+                        id: reconocimiento_archivo
+                        size_hint_x: 0.45
+                        text: 'archivo_1'
+                    Label:
+                        id: file_error
+                        size_hint_x: 0.55
+        BoxLayout:
+            id: graph
+            size_hint_x: 0.6
+    BoxLayout:
+        padding: 10
+        size_hint_y: 0.2
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5
+            Label:
+                text: 'Cambio de parámetros'
+            BoxLayout:
+                Label:
+                    size_hint_x: 0.6
+                    text: 'Intervalo: Peso del Neuron'
+                TextInput:
+                    id: intervalo_1
+                    text: '0'
+                    size_hint_x: 0.15
+                Label:
+                    size_hint_x: 0.1
+                    text: ' - '
+                TextInput:
+                    id: intervalo_2
+                    text: '1'
+                    size_hint_x: 0.15
+            BoxLayout:
+                Label:
+                    size_hint_x: 0.6
+                    text: 'Coeficiente de Aprendizaje'
+                TextInput:
+                    id: tasa_de_aprendizaje
+                    text: '0.25'
+                    size_hint_x: 0.15
+                Label:
+                    size_hint_x: 0.1
+                    text: ''
+                Button:
+                    size_hint_x: 0.15
+                    text: 'Ok'
+                    on_release: root.cambiar_parametros()
+        BoxLayout:
+            padding: 10
+            spacing: 5
+            Label:
+                id: percentages_label
+                text: 'Porcentaje ___ %'
+            Button:
+                size: 100, 50
+                size_hint: None, None
+                pos_hint: {'center_y': .5}
+                text: 'Salir'
+                on_release: app.stop()
